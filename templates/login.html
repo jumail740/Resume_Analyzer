@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Your App</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <h2>Login</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="input-field">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+
+                <div class="input-field">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <p>Don't have an account? <a href="/register/">Register</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Resume Analyzer</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-wrapper">
+            <!-- Header Section -->
+            <div class="dashboard-header">
+                <div class="welcome-section">
+                    <div class="avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="welcome-text">
+                        <h2>Welcome back, <span class="username">{{ request.user.username }}</span></h2>
+                        <p class="welcome-subtitle">Track and manage all your resume analyses</p>
+                    </div>
+                    <div class="header-actions">
+                        <a href="/" class="action-btn new-analysis-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                            New Analysis
+                        </a>
+                        <a href="/logout/" class="action-btn logout-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9-4-18-3 9H2"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ analyses|length }}</h3>
+                        <p>Total Analyses</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{% if analyses %}{{ analyses.0.created_at|date:"M d, Y" }}{% else %}No data{% endif %}</h3>
+                        <p>Latest Analysis</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ analyses|length|default:"0" }}</h3>
+                        <p>Jobs Analyzed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analyses Section -->
+            <div class="analyses-section">
+                <div class="section-header">
+                    <h3>Your Resume Analyses</h3>
+                    <span class="analysis-count">{{ analyses|length }} analysis{{ analyses|length|pluralize }}</span>
+                </div>
+
+                {% if analyses %}
+                    <div class="analyses-list">
+                        {% for item in analyses %}
+                            <div class="analysis-card" data-id="{{ forloop.counter }}">
+                                <div class="analysis-header" onclick="toggleAnalysis(this)">
+                                    <div class="date-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                            <line x1="16" y1="2" x2="16" y2="6"/>
+                                            <line x1="8" y1="2" x2="8" y2="6"/>
+                                            <line x1="3" y1="10" x2="21" y2="10"/>
+                                        </svg>
+                                        <span>{{ item.created_at }}</span>
+                                    </div>
+                                    <div class="job-title-badge">
+                                        <span class="job-tag">{{ item.job_description|truncatechars:30 }}</span>
+                                    </div>
+                                    <button class="expand-btn">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"/>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="analysis-body">
+                                    <!-- Job Description Section -->
+                                    <div class="info-section job-description-section">
+                                        <div class="section-title">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                                            </svg>
+                                            <h4>Job Description</h4>
+                                        </div>
+                                        <div class="job-description-content">
+                                            <p>{{ item.job_description }}</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Result Preview Section -->
+                                    <div class="info-section result-section">
+                                        <div class="section-title">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                            </svg>
+                                            <h4>Analysis Result</h4>
+                                        </div>
+                                        <div class="result-content">
+                                            <pre>{{ item.result|truncatewords:80 }}</pre>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="analysis-footer">
+                                    <button class="view-full-btn" onclick="viewFullAnalysis('{{ item.result|escapejs }}', '{{ item.job_description|escapejs }}', '{{ item.created_at }}')">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                        View Full Analysis
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2M7 10l5 5 5-5M12 15V3"/>
+                            </svg>
+                        </div>
+                        <h3>No analyses yet</h3>
+                        <p>Start your first resume analysis to see results here</p>
+                        <a href="/" class="start-analysis-btn">
+                            Start New Analysis
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Full Analysis -->
+    <div id="analysisModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Analysis Report</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-info">
+                    <div class="modal-date">
+                        <strong>Analysis Date:</strong>
+                        <span id="modalDate"></span>
+                    </div>
+                    <div class="modal-job">
+                        <strong>Job Description:</strong>
+                        <div class="job-desc-box" id="modalJobDesc"></div>
+                    </div>
+                    <div class="modal-result">
+                        <strong>Complete Analysis Result:</strong>
+                        <pre id="modalResult"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnalysis(element) {
+            const card = element.closest('.analysis-card');
+            card.classList.toggle('expanded');
+        }
+
+        function viewFullAnalysis(result, jobDesc, date) {
+            const modal = document.getElementById('analysisModal');
+            document.getElementById('modalDate').innerText = date;
+            document.getElementById('modalJobDesc').innerText = jobDesc;
+            document.getElementById('modalResult').innerText = result;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('analysisModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('analysisModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

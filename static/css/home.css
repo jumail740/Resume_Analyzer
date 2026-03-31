@@ -1,0 +1,446 @@
+/* style.css - Resume Upload Form Styling */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* Form Wrapper */
+.form-wrapper {
+    background: white;
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+}
+
+/* Back Button */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+}
+
+.back-btn:hover {
+    color: #764ba2;
+    transform: translateX(-4px);
+}
+
+.back-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #1f2937;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.subtitle {
+    text-align: center;
+    color: #6c757d;
+    font-size: 14px;
+    margin-bottom: 35px;
+    line-height: 1.5;
+}
+
+/* Form */
+form {
+    margin-top: 10px;
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 30px;
+}
+
+/* Labels */
+label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.label-icon {
+    width: 18px;
+    height: 18px;
+    color: #667eea;
+}
+
+/* File Upload Area */
+.file-upload-area {
+    border: 2px dashed #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    background: #f9fafb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.file-upload-area:hover {
+    border-color: #667eea;
+    background: #fef9f5;
+}
+
+.file-upload-area.drag-over {
+    border-color: #667eea;
+    background: #f0f4ff;
+    transform: scale(1.01);
+}
+
+.file-upload-area input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-upload-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    color: #9ca3af;
+    transition: color 0.3s ease;
+}
+
+.file-upload-area:hover .upload-icon {
+    color: #667eea;
+}
+
+.file-name {
+    font-size: 14px;
+    color: #6c757d;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.file-hint {
+    display: block;
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 12px;
+    text-align: center;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+    color: #1f2937;
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.6;
+}
+
+textarea:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+textarea::placeholder {
+    color: #cbd5e1;
+}
+
+.textarea-hint {
+    display: block;
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 8px;
+    margin-left: 5px;
+}
+
+/* Analyze Button */
+.analyze-btn {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.analyze-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46a0 100%);
+}
+
+.analyze-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+.analyze-btn:hover .btn-icon {
+    transform: translateX(4px);
+}
+
+/* Django Error Messages */
+.errorlist {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    list-style: none;
+    border-left: 4px solid #dc2626;
+}
+
+/* Success Messages */
+.success-message {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    border-left: 4px solid #10b981;
+}
+
+/* Field Error Styling */
+input.error, textarea.error {
+    border-color: #dc2626;
+    background: #fef2f2;
+}
+
+input.error:focus, textarea.error:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+    .form-wrapper {
+        padding: 30px 25px;
+    }
+    
+    h2 {
+        font-size: 28px;
+    }
+    
+    .subtitle {
+        font-size: 13px;
+    }
+    
+    textarea {
+        padding: 12px 16px;
+        font-size: 13px;
+        min-height: 130px;
+    }
+    
+    .analyze-btn {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+    
+    .file-upload-area {
+        padding: 15px;
+    }
+    
+    .upload-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-wrapper {
+        padding: 25px 20px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    .back-btn {
+        margin-bottom: 20px;
+    }
+}
+
+/* Animation for form appearance */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-wrapper {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Focus Visible for Accessibility */
+.analyze-btn:focus-visible,
+textarea:focus-visible,
+.back-btn:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+    
+    .form-wrapper {
+        background: #1f2937;
+    }
+    
+    h2 {
+        color: #f3f4f6;
+    }
+    
+    .subtitle {
+        color: #9ca3af;
+    }
+    
+    label {
+        color: #e5e7eb;
+    }
+    
+    .file-upload-area {
+        background: #374151;
+        border-color: #4b5563;
+    }
+    
+    .file-name {
+        color: #9ca3af;
+    }
+    
+    textarea {
+        background: #374151;
+        border-color: #4b5563;
+        color: #f3f4f6;
+    }
+    
+    textarea::placeholder {
+        color: #6b7280;
+    }
+    
+    textarea:focus {
+        background: #1f2937;
+        border-color: #9f7aea;
+    }
+    
+    .textarea-hint {
+        color: #6b7280;
+    }
+}
+
+/* Disabled button state */
+.analyze-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Loading state for button */
+.analyze-btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.analyze-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid white;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
